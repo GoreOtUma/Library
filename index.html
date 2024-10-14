@@ -12,6 +12,52 @@
 <body>
 <main>
 <div class="wrapper backgroundColor">
+    <div class="cdUserModal" id="enterWindow" display="none">
+        <div class="cdUserModalContainer">
+            <ul class="cdSwitcher">
+                <li><a href="#0" id="loginTab" class="selected">Вход</a></li>
+                <li><a href="#0" id="signupTab">Регистрация</a></li>
+            </ul>
+
+            <div id="cdLogin" class="isSelected"> 
+                <form class="cdForm" action="login.php" method="POST">
+                    <p class="fieldset">
+                        <input id="loginEmail" type="email" name="loginEmail" placeholder="E-mail">
+                    </p>
+
+                    <p class="fieldset">
+                        <input id="loginPassword" type="text" name="loginPassword" placeholder="Пароль">
+                        <a href="#0" class="hidePassword">Скрыть</a>
+                    </p>
+
+                    <p class="fieldset">
+                        <input class="full-width" type="submit" value="Войти">
+                    </p>
+                </form>
+            </div>
+
+            <div id="cdSignup">
+                <form class="cdForm" action="signup.php" method="POST">
+                    <p class="fieldset">
+                        <input id="signupName" name="signupName" type="text" placeholder="Имя пользователя">
+                    </p>
+
+                    <p class="fieldset">
+                        <input id="signupEmail" name="signupEmail" type="email" placeholder="E-mail">
+                    </p>
+
+                    <p class="fieldset">
+                        <input id="signupPassword" name="signupPassword" type="text"  placeholder="Пароль">
+                        <a href="#0" class="hidePassword">Скрыть</a>
+                    </p>
+
+                    <p class="fieldset">
+                        <input type="submit" value="Создать аккаунт">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
     <aside id="menu">
         <div id="mainNav">
             <h1>Library</h1>

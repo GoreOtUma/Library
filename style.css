@@ -99,3 +99,60 @@ h2 {
   font-weight: 400;
   padding-left: 30px;
 }
+.book-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.book-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 300px;
+}
+
+.book-form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.book-form input {
+  margin-bottom: 15px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.book-form button {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #4e505d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.book-form button:hover {
+  background-color: #3b3d48;
+}
+
+.book-list-wrapper {
+  margin-left: 20px;
+}
+
+.book-list-container {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  width: 200px;
+}
+
+.book-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.book-list li {
+  margin-bottom: 5px;
+  padding: 5px;
+  background-color: #e0e0e0;
+}

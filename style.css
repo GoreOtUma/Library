@@ -49,6 +49,7 @@ a {
 .mainNav li {
   display: inline-block;
 }
+
 #menu nav ul{
   padding-left: 0;
 }
@@ -98,6 +99,121 @@ h2 {
   line-height: 70px;
   font-weight: 400;
   padding-left: 30px;
+}
+
+#enterWindow {
+  display: block;
+  position: fixed;
+  z-index: 1000;
+}
+
+.cdSwitcher {
+  border-bottom:  1px solid #343642;
+}
+
+.cdUserModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(213 214 218);
+}
+
+.cdUserModal.isVisible {
+  visibility: visible;
+}
+
+.cdUserModalContainer {
+  width: 90%;
+  max-width: 600px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  border: 1px solid #343642;
+}
+
+.cdUserModalContainer .cdSwitcher:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.cdSwitcher li {
+  width: 50%;
+  float: left;
+  text-align: center;
+  list-style-type: none;
+}
+
+.cdSwitcher a {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  color: rgb(54, 54, 54);
+}
+
+.cdSwitcher a.selected {
+  color: black !important;
+}
+
+.cdForm {
+  padding: 1.4em;
+}
+
+.cdForm .fieldset {
+  position: relative;
+  margin: 1.4em 0;
+}
+
+.cdForm input {
+  margin: 0;
+  border-radius: 0.25em;
+  border: 1px solid #d2d8d8;
+  width: 100%;
+  padding: 12px 20px 12px 50px;
+}
+
+.cdForm input:focus {
+  border-color: #343642;
+  outline: none;
+}
+
+.cdForm input[type=password] {
+  padding-right: 65px;
+}
+
+.cdForm input[type=submit] {
+  padding: 16px 0;
+  background-color: rgb(213 214 220);
+  border: 1px solid #343642;
+  appearance: none;
+}
+.cdForm input[type=submit]:hover {
+  background-color: rgb(228, 229, 236);
+  transition: 0.5s;
+}
+
+.cdForm .hidePassword {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 20%;
+  padding: 6px 15px;
+  border-left: 1px solid #343642;
+  font-size: 14px;
+  color: #343642;
+}
+
+#cdLogin, #cdSignup {
+  display: none;
+}
+
+#cdLogin.isSelected, #cdSignup.isSelected {
+  display: block;
 }
 .book-container {
   display: flex;

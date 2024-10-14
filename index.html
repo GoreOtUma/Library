@@ -12,6 +12,52 @@
 <body>
 <main>
 <div class="wrapper backgroundColor">
+    <div class="cdUserModal" id="enterWindow" style='display:none'>
+        <div class="cdUserModalContainer">
+            <ul class="cdSwitcher">
+                <li><a href="#0" id="loginTab" class="selected">Вход</a></li>
+                <li><a href="#0" id="signupTab">Регистрация</a></li>
+            </ul>
+
+            <div id="cdLogin" class="isSelected"> 
+                <form class="cdForm" action="login.php" method="POST">
+                    <p class="fieldset">
+                        <input id="loginEmail" type="email" name="loginEmail" placeholder="E-mail">
+                    </p>
+
+                    <p class="fieldset">
+                        <input id="loginPassword" type="text" name="loginPassword" placeholder="Пароль">
+                        <a href="#0" class="hidePassword">Скрыть</a>
+                    </p>
+
+                    <p class="fieldset">
+                        <input class="full-width" type="submit" value="Войти">
+                    </p>
+                </form>
+            </div>
+
+            <div id="cdSignup">
+                <form class="cdForm" action="signup.php" method="POST">
+                    <p class="fieldset">
+                        <input id="signupName" name="signupName" type="text" placeholder="Имя пользователя">
+                    </p>
+
+                    <p class="fieldset">
+                        <input id="signupEmail" name="signupEmail" type="email" placeholder="E-mail">
+                    </p>
+
+                    <p class="fieldset">
+                        <input id="signupPassword" name="signupPassword" type="text"  placeholder="Пароль">
+                        <a href="#0" class="hidePassword">Скрыть</a>
+                    </p>
+
+                    <p class="fieldset">
+                        <input type="submit" value="Создать аккаунт">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
     <aside id="menu">
         <div id="mainNav">
             <h1>Library</h1>
@@ -61,7 +107,6 @@
             </div>
         </div>
     </section>
-    
     <section id="readersPage" style="display:none">
         <h2>Читатели</h2>
         
@@ -108,39 +153,6 @@
 
     <section id="libraryPage" style="display:none">
         <h2>Библиотека</h2>
-        <div class="library-container">
-            <div class="library-lists">
-                <div class="book-list-section">
-                    <h3>Список книг</h3>
-                    <ul id="libraryBookList">
-                        <li>Книга 1</li>
-                        <li>Книга 2</li>
-                        <li>Книга 3</li>
-                        <li>Книга 4</li>
-                        <li>Книга 5</li>
-                    </ul>
-                </div>
-    
-                <div class="reader-list-section">
-                    <h3>Список читателей</h3>
-                    <div class="reader-list-and-actions">
-                        <ul id="readerList">
-                            <li>Читатель 1</li>
-                            <li>Читатель 2</li>
-                            <li>Читатель 3</li>
-                            <li>Читатель 4</li>
-                            <li>Читатель 5</li>
-                        </ul>
-                        <div class="library-actions">
-                            <button id="issueBookBtn">Выдать книгу</button>
-                            <button id="returnBookBtn">Принять книгу</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-       
         <div class="library-container">
             <div class="library-lists">
                 <div class="book-list-section">

@@ -1,5 +1,3 @@
-<?php
-
 try {
 
     $pdo = new PDO('sqlite:library.db');
@@ -12,5 +10,3 @@ try {
 
     echo "Ошибка подключения к базе данных: " . $e->getMessage();
 }
-
-?>

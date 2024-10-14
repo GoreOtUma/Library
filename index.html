@@ -82,15 +82,70 @@
 
     <section id="booksPage">
         <h2>Книги</h2>
+        <div class="book-container">
+            <div class="book-form">
+                <label for="author">Автор</label>
+                <input type="text" id="author" name="author">
+    
+                <label for="title">Название</label>
+                <input type="text" id="title" name="title">
+    
+                <button id="addBookBtn">Добавить книгу</button>
+                <button id="removeBookBtn">Удалить книгу</button>
+            </div>
+            <div class="book-list-wrapper">
+                <h3>Список книг</h3>
+                <div class="book-list-container">
+                    <ul id="bookList">
+                        <li>Элемент примера 1</li>
+                        <li>Элемент примера 2</li>
+                        <li>Элемент примера 3</li>
+                        <li>Элемент примера 4</li>
+                        <li>Элемент примера 5</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
-
     <section id="readersPage" style="display:none">
         <h2>Читатели</h2>
     </section>   
 
     <section id="libraryPage" style="display:none">
         <h2>Библиотека</h2>
-    </section>   
+        <div class="library-container">
+            <div class="library-lists">
+                <div class="book-list-section">
+                    <h3>Список книг</h3>
+                    <ul id="libraryBookList">
+                        <li>Книга 1</li>
+                        <li>Книга 2</li>
+                        <li>Книга 3</li>
+                        <li>Книга 4</li>
+                        <li>Книга 5</li>
+                    </ul>
+                </div>
+    
+                <div class="reader-list-section">
+                    <h3>Список читателей</h3>
+                    <div class="reader-list-and-actions">
+                        <ul id="readerList">
+                            <li>Читатель 1</li>
+                            <li>Читатель 2</li>
+                            <li>Читатель 3</li>
+                            <li>Читатель 4</li>
+                            <li>Читатель 5</li>
+                        </ul>
+                        <div class="library-actions">
+                            <button id="issueBookBtn">Выдать книгу</button>
+                            <button id="returnBookBtn">Принять книгу</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+       
 </div>
 </main>
 </body>

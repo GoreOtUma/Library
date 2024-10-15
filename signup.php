@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         $sql = "INSERT INTO users (role, first_name, last_name, birth_date, login, password) 
-                VALUES ('user', :first_name, '', :birth_date, :login, :password)";
+                VALUES ('user', :first_name, :last_name, :birth_date, :login, :password)";
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute([

@@ -91,12 +91,12 @@
                     <input type="text" name="first_name" placeholder="Имя" required>
                     <input type="text" name="last_name" placeholder="Фамилия" required>
                     <input type="date" name="birth_date" placeholder="Дата рождения" required>
-                    <input type="text" name="login" placeholder="Логин" required>
-                    <input type="password" name="password" placeholder="Пароль" required>
-                    <button type="submit">Добавить читателя</button>
+                    <input type="text" name="login" placeholder="Логин" required> 
+                    <input type="password" name="password" placeholder="Пароль" required> <br><br>
+                    <button id="addReaderBtn" type="submit">Добавить читателя</button>
                 </form>
             </div>
-    
+            <br><br>
             <div class="form-container">
                 <button id="removeReaderBtn">Удалить читателя</button>
             </div>

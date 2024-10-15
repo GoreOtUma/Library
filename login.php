@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+session_start();
+include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $loginEmail = $_POST['loginEmail'];
@@ -17,12 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($loginPassword, $user['password'])) {
+        if ($user && $loginPassword === $user['password']) { /
             $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['role'] = $user['role'];
             $_SESSION['login'] = $user['login'];
             header("Location: main_window.php");
-            echo "Вы успешно вошли в систему!";
+            exit;
         } else {
             echo "Неправильный логин или пароль.";
         }

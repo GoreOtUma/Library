@@ -78,7 +78,7 @@ a {
 }
 
 #booksPage, #readersPage, #libraryPage {
-  width: 85%;
+  width: 84%;
   right: 0;
   position: absolute;
 }
@@ -188,13 +188,7 @@ h2 {
 
 .cdForm input[type=submit] {
   padding: 16px 0;
-  background-color: rgb(213 214 220);
-  border: 1px solid #343642;
   appearance: none;
-}
-.cdForm input[type=submit]:hover {
-  background-color: rgb(228, 229, 236);
-  transition: 0.5s;
 }
 
 .cdForm .hidePassword {
@@ -215,6 +209,7 @@ h2 {
 #cdLogin.isSelected, #cdSignup.isSelected {
   display: block;
 }
+
 .book-container {
   display: flex;
   align-items: flex-start;
@@ -241,25 +236,21 @@ h2 {
 .book-form button {
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #4e505d;
   color: white;
   border: none;
   cursor: pointer;
 }
 
-.book-form button:hover {
-  background-color: #3b3d48;
-}
-
 .book-list-wrapper {
-  margin-left: 20px;
+  margin-left: 120px;
 }
 
-.book-list-container {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  width: 200px;
+.list-box {
+  margin-left: 50px;
+}
+
+.list-box #bookList {
+  margin-top: 6px;
 }
 
 .book-list ul {
@@ -267,11 +258,6 @@ h2 {
   padding: 0;
 }
 
-.book-list li {
-  margin-bottom: 5px;
-  padding: 5px;
-  background-color: #e0e0e0;
-}
 .library-container {
   display: flex;
   justify-content: flex-start;
@@ -283,23 +269,23 @@ h2 {
   display: flex;
 }
 
-.book-list-section, .reader-list-section {
-  margin-right: 20px;
+.book-list-section {
+  margin-right: 50px;
 }
 
 .book-list-section h3, .reader-list-section h3 {
   margin-bottom: 10px;
 }
 
-#libraryBookList, #readerList {
+#libraryBookList, #readerList, #bookList {
   list-style-type: none;
   padding: 0;
   background-color: #f0f0f0;
   padding: 10px;
-  width: 200px;
+  min-width: 300px;
 }
 
-#libraryBookList li, #readerList li {
+#libraryBookList li, #readerList li, #bookList li {
   margin-bottom: 5px;
   padding: 5px;
   background-color: #e0e0e0;
@@ -311,7 +297,7 @@ h2 {
 }
 
 .library-actions {
-  margin-left: 10px; /* Отступ слева для кнопок */
+  margin-left: 50px;
   display: flex;
   flex-direction: column;
 }
@@ -319,12 +305,28 @@ h2 {
 .library-actions button {
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #4e505d;
-  color: white;
   border: none;
   cursor: pointer;
 }
 
-.library-actions button:hover {
+button, .cdForm input[type=submit] {
+  background-color: #4e505d;
+  color: white;
+}
+
+button:hover, .cdForm input[type=submit]:hover {
   background-color: #3b3d48;
+}
+
+#readerList {
+  margin-top: 6px;
+}
+
+.list-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+#addReaderBtn, #removeReaderBtn {
+  width: 240px;
 }

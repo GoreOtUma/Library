@@ -43,6 +43,10 @@
                     </p>
 
                     <p class="fieldset">
+                        <input id="signupLastName" name="signupLastName" type="text" placeholder="Фамилия">
+                    </p>
+
+                    <p class="fieldset">
                         <input id="signupEmail" name="signupEmail" type="email" placeholder="E-mail">
                     </p>
 

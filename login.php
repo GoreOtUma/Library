@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Перенаправляем пользователя на основную страницу
             header("Location: main_window.php");
             exit;
-            exit;
         } else {
             echo "Неправильный логин или пароль.";
         }

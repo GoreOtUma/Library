@@ -1,20 +1,37 @@
 <?php
 session_start();
+require 'check_role.php'; // Проверка на авторизацию и получение роли пользователя
+
+include 'config.php'; // Подключение к базе данных
+
 $userRole = $_SESSION['role']; // Получаем роль пользователя
+$userId = $_SESSION['user_id']; // Получаем ID пользователя
+
+// Получение списка книг, которые взял пользователь (для роли 'user')
+$myBooks = [];
+if ($userRole === 'user') {
+    $sql = "SELECT books.title FROM books 
+            JOIN borrowed_books ON books.book_id = borrowed_books.book_id 
+            WHERE borrowed_books.user_id = :user_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':user_id' => $userId]);
+    $myBooks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Library</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-<script async src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script async src="scriptMain.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <script async src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script async src="scriptMain.js"></script>
 </head>
 <body>
+<div id="userRole" style="display:none;"><?php echo $_SESSION['role']; ?></div>
 <main>
 <div class="wrapper backgroundColor">
     <aside id="menu">
@@ -90,9 +107,10 @@ $userRole = $_SESSION['role']; // Получаем роль пользовате
                             <li>Книга 4</li>
                             <li>Книга 5</li>
                         <?php else: ?>
-                            <!-- Здесь будет динамический вывод только взятых пользователем книг -->
-                            <li>Моя книга 1</li>
-                            <li>Моя книга 2</li>
+                            <!-- Отображаем только книги пользователя -->
+                            <?php foreach ($myBooks as $book): ?>
+                                <li><?php echo htmlspecialchars($book['title']); ?></li>
+                            <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
                 </div>

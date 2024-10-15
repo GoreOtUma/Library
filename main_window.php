@@ -7,57 +7,11 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
 <script async src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script async src="script.js"></script>
+<script async src="scriptMain.js"></script>
 </head>
 <body>
 <main>
 <div class="wrapper backgroundColor">
-    <div class="cdUserModal" id="enterWindow" style='display:none'>
-        <div class="cdUserModalContainer">
-            <ul class="cdSwitcher">
-                <li><a href="#0" id="loginTab" class="selected">Вход</a></li>
-                <li><a href="#0" id="signupTab">Регистрация</a></li>
-            </ul>
-
-            <div id="cdLogin" class="isSelected"> 
-                <form class="cdForm" action="login.php" method="POST">
-                    <p class="fieldset">
-                        <input id="loginEmail" type="email" name="loginEmail" placeholder="E-mail">
-                    </p>
-
-                    <p class="fieldset">
-                        <input id="loginPassword" type="text" name="loginPassword" placeholder="Пароль">
-                        <a href="#0" class="hidePassword">Скрыть</a>
-                    </p>
-
-                    <p class="fieldset">
-                        <input class="full-width" type="submit" value="Войти">
-                    </p>
-                </form>
-            </div>
-
-            <div id="cdSignup">
-                <form class="cdForm" action="signup.php" method="POST">
-                    <p class="fieldset">
-                        <input id="signupName" name="signupName" type="text" placeholder="Имя пользователя">
-                    </p>
-
-                    <p class="fieldset">
-                        <input id="signupEmail" name="signupEmail" type="email" placeholder="E-mail">
-                    </p>
-
-                    <p class="fieldset">
-                        <input id="signupPassword" name="signupPassword" type="text"  placeholder="Пароль">
-                        <a href="#0" class="hidePassword">Скрыть</a>
-                    </p>
-
-                    <p class="fieldset">
-                        <input type="submit" value="Создать аккаунт">
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
     <aside id="menu">
         <div id="mainNav">
             <h1>Library</h1>
@@ -72,7 +26,7 @@
         <div id="settingsNav">
             <nav>
                 <ul>
-                    <li id="exitLibrary"><a class="cdExit" id="cdExit">Выход</a></li>
+                    <li id="exitLibrary"><a class="cdExit" id="cdExit" href="exit.php">Выход</a></li>
                 </ul>
             </nav>
         </div>

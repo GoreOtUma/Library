@@ -109,14 +109,8 @@
     </section>
     <section id="readersPage" style="display:none">
         <h2>Читатели</h2>
-        
-        <div class="container">
-            <div class="section-header">
-                <button>Читатели</button>
-                <button>Книги</button>
-                <button>Библиотека</button>
-            </div>
     
+        <div class="container">
             <div class="list-container">
                 <div class="list-box">
                     <ul id="readerList">
@@ -139,10 +133,14 @@
             </div>
     
             <div class="form-container">
-                <input type="text" id="firstName" placeholder="Имя">
-                <input type="text" id="lastName" placeholder="Фамилия">
-                <input type="date" id="birthDate" placeholder="Выбор даты">
-                <button id="addReaderBtn">Добавить читателя</button>
+                <form action="add_reader.php" method="POST">
+                    <input type="text" name="first_name" placeholder="Имя" required>
+                    <input type="text" name="last_name" placeholder="Фамилия" required>
+                    <input type="date" name="birth_date" placeholder="Дата рождения" required>
+                    <input type="text" name="login" placeholder="Логин" required>
+                    <input type="password" name="password" placeholder="Пароль" required>
+                    <button type="submit">Добавить читателя</button>
+                </form>
             </div>
     
             <div class="form-container">
@@ -150,7 +148,6 @@
             </div>
         </div>
     </section>
-
     <section id="libraryPage" style="display:none">
         <h2>Библиотека</h2>
         <div class="library-container">

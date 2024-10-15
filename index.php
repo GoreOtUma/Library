@@ -8,6 +8,18 @@
 <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
 <script async src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script async src="script.js"></script>
+
+<?php
+require 'config.php';
+
+try {
+    $books = $pdo->query('SELECT * FROM books')->fetchAll();
+} catch (PDOException $e) {
+    echo "Ошибка выполнения запроса: " . $e->getMessage();
+}
+?>
+
+
 </head>
 <body>
 <main>
@@ -80,33 +92,34 @@
 
     <section id="overlay"></section>
 
+
+    
     <section id="booksPage">
         <h2>Книги</h2>
         <div class="book-container">
             <div class="book-form">
                 <label for="author">Автор</label>
                 <input type="text" id="author" name="author">
-    
+            
                 <label for="title">Название</label>
                 <input type="text" id="title" name="title">
-    
+            
                 <button id="addBookBtn">Добавить книгу</button>
-                <button id="removeBookBtn">Удалить книгу</button>
             </div>
             <div class="book-list-wrapper">
                 <h3>Список книг</h3>
                 <div class="book-list-container">
                     <ul id="bookList">
-                        <li>Элемент примера 1</li>
-                        <li>Элемент примера 2</li>
-                        <li>Элемент примера 3</li>
-                        <li>Элемент примера 4</li>
-                        <li>Элемент примера 5</li>
+                        <?php foreach ($books as $book): ?>
+                            <li><?php echo htmlspecialchars($book['title']); ?> — <?php echo htmlspecialchars($book['author']); ?></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
+    
+    
     <section id="readersPage" style="display:none">
         <h2>Читатели</h2>
         

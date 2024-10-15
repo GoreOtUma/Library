@@ -79,3 +79,38 @@ jQuery(document).ready(function($) {
 		$tab_signup.addClass('selected');
 	};
 });
+
+
+//addBook
+$(document).ready(function() {
+    $("#addBookBtn").click(function() {
+        var author = $("#author").val();
+        var title = $("#title").val();
+
+        $.ajax({
+            url: 'add_book.php',
+            type: 'POST',
+            data: {
+                author: author,
+                title: title
+            },
+            success: function(response) {
+                alert(response);
+
+                loadBooks();
+            }
+        });
+    });
+});
+
+function loadBooks() {
+    $.ajax({
+        url: 'get_books.php',  
+        method: 'GET',
+        success: function(data) {
+            $("#bookList").html(data);
+        }
+    });
+}
+
+

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && $loginPassword === $user['password']) { /
+        if ($user && $loginPassword === $user['password']) { 
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['login'] = $user['login'];
             header("Location: main_window.php");

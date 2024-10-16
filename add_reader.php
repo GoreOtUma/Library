@@ -1,4 +1,5 @@
 <?php
+session_start();
 try {
     $pdo = new PDO('sqlite:library.db');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

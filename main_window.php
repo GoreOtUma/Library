@@ -75,7 +75,15 @@ require 'view_reader.php';
             <div class="book-list-container">
                 <ul id="bookList">
                 <?php foreach ($books as $book): ?>
-                        <li><?php echo htmlspecialchars($book['author'] . ' - ' . $book['title']); ?></li>
+                    <li>
+                        <?php echo htmlspecialchars($book['author'] . ' - ' . $book['title']); ?>
+                        <?php if ($userRole === 'librarian'): ?>
+                            <form method="post" action="" style="display:inline;">
+                                <input type="hidden" name="bookId" value="<?php echo $book['id']; ?>">
+                                <button type="submit" name="deleteBookBtn">Удалить</button>
+                            </form>
+                        <?php endif; ?>
+                    </li>
                 <?php endforeach; ?>
                 </ul>
             </div>
@@ -102,6 +110,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addBookBtn'])) {
         }
     } else {
         echo "Пожалуйста, заполните все поля.";
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteBookBtn'])) {
+    $bookId = intval($_POST['bookId']);
+
+    if ($bookId > 0) {
+        try {
+            // Удаление из базы данных
+            $stmt = $pdo->prepare("DELETE FROM books WHERE id = :id");
+            $stmt->bindParam(':id', $bookId);
+            $stmt->execute();
+
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } catch (PDOException $e) {
+            echo "Ошибка удаления книги: " . $e->getMessage();
+        }
     }
 }
 ?>

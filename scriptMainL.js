@@ -5,8 +5,6 @@ const booksTab = document.getElementById('booksTab');
 const readersTab = document.getElementById('readersTab');
 const libraryTab = document.getElementById('libraryTab');
 
-const userRole = document.getElementById('userRole').textContent;
-
 function showBooks() {
     booksPage.style.display = 'block';
     readersPage.style.display = 'none';
@@ -14,11 +12,9 @@ function showBooks() {
 }
 
 function showReaders() {
-    if (userRole === 'librarian') {
-        booksPage.style.display = 'none';
-        readersPage.style.display = 'block';
-        libraryPage.style.display = 'none';
-    }
+    booksPage.style.display = 'none';
+    readersPage.style.display = 'block';
+    libraryPage.style.display = 'none';
 }
 
 function showLibrary() {
@@ -28,11 +24,5 @@ function showLibrary() {
 }
 
 booksTab.addEventListener('click', showBooks);
-
-if (userRole === 'librarian') {
-    readersTab.addEventListener('click', showReaders);
-    libraryTab.addEventListener('click', showLibrary);
-} else {
-    readersTab.style.display = 'none';
-    libraryTab.addEventListener('click', showLibrary);
-}
+readersTab.addEventListener('click', showReaders);
+libraryTab.addEventListener('click', showLibrary);

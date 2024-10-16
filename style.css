@@ -220,6 +220,7 @@ h2 {
   flex-direction: column;
   padding: 20px;
   width: 300px;
+  margin-right: 70px;
 }
 
 .book-form label {
@@ -242,7 +243,7 @@ h2 {
 }
 
 .book-list-wrapper {
-  margin-left: 120px;
+  margin-left: 50px;
 }
 
 .list-box {

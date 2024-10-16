@@ -1,22 +1,11 @@
 <?php
 session_start();
-require 'check_role.php'; // Проверка на авторизацию и получение роли пользователя
+require 'check_role.php'; 
 
-include 'config.php'; // Подключение к базе данных
+include 'config.php';
 
-$userRole = $_SESSION['role']; // Получаем роль пользователя
-$userId = $_SESSION['user_id']; // Получаем ID пользователя
-
-// Получение списка книг, которые взял пользователь (для роли 'user')
-$myBooks = [];
-if ($userRole === 'user') {
-    $sql = "SELECT books.title FROM books 
-            JOIN borrowed_books ON books.book_id = borrowed_books.book_id 
-            WHERE borrowed_books.user_id = :user_id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':user_id' => $userId]);
-    $myBooks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+$userRole = $_SESSION['role']; 
+$userId = $_SESSION['user_id']; 
 ?>
 
 <!DOCTYPE html>
@@ -28,10 +17,14 @@ if ($userRole === 'user') {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <script async src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script async src="scriptMain.js"></script>
+    <?php if ($userRole === 'user'):?>
+        <script async src="scriptMainR.js"></script>
+    <?php endif; ?>
+    <?php if ($userRole === 'librarian'):?>
+        <script async src="scriptMainL.js"></script>
+    <?php endif; ?>
 </head>
 <body>
-<div id="userRole" style="display:none;"><?php echo $_SESSION['role']; ?></div>
 <main>
 <div class="wrapper backgroundColor">
     <aside id="menu">
@@ -39,14 +32,14 @@ if ($userRole === 'user') {
             <h1>Library</h1>
             <nav>
                 <ul>
-                    <?php if ($userRole === 'librarian'): ?>
                         <li id="booksTab">Книги</li>
-                        <li id="readersTab">Читатели</li>
-                        <li id="libraryTab">Библиотека</li>
-                    <?php else: ?>
-                        <li id="booksTab">Книги</li>
-                        <li id="libraryTab">Библиотека</li>
-                    <?php endif; ?>
+                        <?php if ($userRole === 'user'):?>
+                            <li id="readersTab" style='display:block'>Мои книги</li>
+                        <?php endif; ?>
+                        <?php if ($userRole === 'librarian'):?>
+                            <li id="readersTab">Читатели</li>
+                            <li id="libraryTab">Библиотека</li>
+                        <?php endif; ?>
                 </ul>
             </nav>
         </div>
@@ -61,7 +54,6 @@ if ($userRole === 'user') {
 
     <section id="overlay"></section>
 
-    <!-- Секция книг -->
     <section id="booksPage">
         <h2>Книги</h2>
         <div class="book-container">
@@ -92,7 +84,58 @@ if ($userRole === 'user') {
         </div>
     </section>
 
-    <!-- Секция библиотеки -->
+    <section id="readersPage" style="display:none">
+        <?php if ($userRole === 'librarian'): ?>
+        <h2>Читатели</h2>
+        <?php endif; ?>
+        <?php if ($userRole === 'user'): ?>
+        <h2>Мои книги</h2>
+        <?php endif; ?>
+    
+        <div class="container">
+            <div class="list-container">
+                <?php if ($userRole === 'librarian'): ?>
+                <div class="list-box">
+                    <ul id="readerList">
+                        <li>Элемент примера 1</li>
+                        <li>Элемент примера 2</li>
+                        <li>Элемент примера 3</li>
+                        <li>Элемент примера 4</li>
+                        <li>Элемент примера 5</li>
+                    </ul>
+                </div>
+                <?php endif; ?>
+                <div class="list-box">
+                    <ul id="bookList">
+                        <li>Элемент примера 1</li>
+                        <li>Элемент примера 2</li>
+                        <li>Элемент примера 3</li>
+                        <li>Элемент примера 4</li>
+                        <li>Элемент примера 5</li>
+                    </ul>
+                </div>
+            </div>
+             
+            <?php if ($userRole === 'librarian'): ?>
+            <div class="form-container">
+                <form action="add_reader.php" method="POST">
+                    <input type="text" name="first_name" placeholder="Имя" required>
+                    <input type="text" name="last_name" placeholder="Фамилия" required>
+                    <input type="date" name="birth_date" placeholder="Дата рождения" required>
+                    <input type="text" name="login" placeholder="Логин" required> 
+                    <input type="password" name="password" placeholder="Пароль" required> <br><br>
+                    <button id="addReaderBtn" type="submit">Добавить читателя</button>
+                </form>
+            </div>
+            <br><br>
+            <div class="form-container">
+                <button id="removeReaderBtn">Удалить читателя</button>
+            </div>
+            <?php endif; ?>
+        </div>
+    </section>
+
+    <?php if ($userRole === 'librarian'): ?>
     <section id="libraryPage" style="display:none">
         <h2>Библиотека</h2>
         <div class="library-container">
@@ -100,22 +143,14 @@ if ($userRole === 'user') {
                 <div class="book-list-section">
                     <h3><?php echo ($userRole === 'librarian') ? 'Список книг' : 'Мои книги'; ?></h3>
                     <ul id="libraryBookList">
-                        <?php if ($userRole === 'librarian'): ?>
-                            <li>Книга 1</li>
-                            <li>Книга 2</li>
-                            <li>Книга 3</li>
-                            <li>Книга 4</li>
-                            <li>Книга 5</li>
-                        <?php else: ?>
-                            <!-- Отображаем только книги пользователя -->
-                            <?php foreach ($myBooks as $book): ?>
-                                <li><?php echo htmlspecialchars($book['title']); ?></li>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                        <li>Книга 1</li>
+                        <li>Книга 2</li>
+                        <li>Книга 3</li>
+                        <li>Книга 4</li>
+                        <li>Книга 5</li>
                     </ul>
                 </div>
 
-                <?php if ($userRole === 'librarian'): ?>
                     <div class="reader-list-section">
                         <h3>Список читателей</h3>
                         <div class="reader-list-and-actions">
@@ -132,10 +167,10 @@ if ($userRole === 'user') {
                             </div>
                         </div>
                     </div>
-                <?php endif; ?>
             </div>
         </div>
     </section>
+    <?php endif; ?>
 </div>
 </main>
 </body>

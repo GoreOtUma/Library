@@ -5,7 +5,9 @@ require 'check_role.php';
 include 'config.php';
 
 $userRole = $_SESSION['role']; 
-$userId = $_SESSION['user_id']; 
+$userId = $_SESSION['user_id'];
+require 'view_book.php';
+require 'view_reader.php';
 ?>
 
 <!DOCTYPE html>
@@ -51,9 +53,7 @@ $userId = $_SESSION['user_id'];
             </nav>
         </div>
     </aside>
-
     <section id="overlay"></section>
-
     <section id="booksPage">
         <h2>Книги</h2>
         <div class="book-container">
@@ -73,17 +73,14 @@ $userId = $_SESSION['user_id'];
                 <h3>Список всех книг</h3>
                 <div class="book-list-container">
                     <ul id="bookList">
-                        <li>Книга 1</li>
-                        <li>Книга 2</li>
-                        <li>Книга 3</li>
-                        <li>Книга 4</li>
-                        <li>Книга 5</li>
+                    <?php foreach ($books as $book): ?>
+                            <li><?php echo htmlspecialchars($book['author'] . ' - ' . $book['title']); ?></li>
+                    <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-
     <section id="readersPage" style="display:none">
         <?php if ($userRole === 'librarian'): ?>
         <h2>Читатели</h2>
@@ -97,25 +94,13 @@ $userId = $_SESSION['user_id'];
                 <?php if ($userRole === 'librarian'): ?>
                 <div class="list-box">
                     <ul id="readerList">
-                        <li>Элемент примера 1</li>
-                        <li>Элемент примера 2</li>
-                        <li>Элемент примера 3</li>
-                        <li>Элемент примера 4</li>
-                        <li>Элемент примера 5</li>
+                    <?php foreach ($users as $user): ?>
+                            <li><?php echo htmlspecialchars($user['first_name'] . ' - ' . $user['last_name'] . ' - ' . $user['birth_date']); ?></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 <?php endif; ?>
-                <div class="list-box">
-                    <ul id="bookList">
-                        <li>Элемент примера 1</li>
-                        <li>Элемент примера 2</li>
-                        <li>Элемент примера 3</li>
-                        <li>Элемент примера 4</li>
-                        <li>Элемент примера 5</li>
-                    </ul>
-                </div>
             </div>
-             
             <?php if ($userRole === 'librarian'): ?>
             <div class="form-container">
                 <form action="add_reader.php" method="POST">
@@ -134,7 +119,6 @@ $userId = $_SESSION['user_id'];
             <?php endif; ?>
         </div>
     </section>
-
     <?php if ($userRole === 'librarian'): ?>
     <section id="libraryPage" style="display:none">
         <h2>Библиотека</h2>
@@ -143,23 +127,18 @@ $userId = $_SESSION['user_id'];
                 <div class="book-list-section">
                     <h3><?php echo ($userRole === 'librarian') ? 'Список книг' : 'Мои книги'; ?></h3>
                     <ul id="libraryBookList">
-                        <li>Книга 1</li>
-                        <li>Книга 2</li>
-                        <li>Книга 3</li>
-                        <li>Книга 4</li>
-                        <li>Книга 5</li>
+                        <?php foreach ($books as $book): ?>
+                            <li><?php echo htmlspecialchars($book['author'] . ' - ' . $book['title']); ?></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
-
                     <div class="reader-list-section">
                         <h3>Список читателей</h3>
                         <div class="reader-list-and-actions">
                             <ul id="readerList">
-                                <li>Читатель 1</li>
-                                <li>Читатель 2</li>
-                                <li>Читатель 3</li>
-                                <li>Читатель 4</li>
-                                <li>Читатель 5</li>
+                                <?php foreach ($users as $user): ?>
+                                    <li><?php echo htmlspecialchars($user['first_name'] . ' - ' . $user['last_name'] . ' - ' . $user['birth_date']); ?></li>
+                                <?php endforeach; ?>
                             </ul>
                             <div class="library-actions">
                                 <button id="issueBookBtn">Выдать книгу</button>

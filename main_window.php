@@ -55,32 +55,57 @@ require 'view_reader.php';
     </aside>
     <section id="overlay"></section>
     <section id="booksPage">
-        <h2>Книги</h2>
-        <div class="book-container">
-            <?php if ($userRole === 'librarian'): ?>
-                <div class="book-form">
+    <h2>Книги</h2>
+    <div class="book-container">
+        <?php if ($userRole === 'librarian'): ?>
+            <div class="book-form">
+                <form method="post" action="">
                     <label for="author">Автор</label>
-                    <input type="text" id="author" name="author">
-    
+                    <input type="text" id="author" name="author" required>
+
                     <label for="title">Название</label>
-                    <input type="text" id="title" name="title">
-    
-                    <button id="addBookBtn">Добавить книгу</button>
-                    <button id="removeBookBtn">Удалить книгу</button>
-                </div>
-            <?php endif; ?>
-            <div class="book-list-wrapper">
-                <h3>Список всех книг</h3>
-                <div class="book-list-container">
-                    <ul id="bookList">
-                    <?php foreach ($books as $book): ?>
-                            <li><?php echo htmlspecialchars($book['author'] . ' - ' . $book['title']); ?></li>
-                    <?php endforeach; ?>
-                    </ul>
-                </div>
+                    <input type="text" id="title" name="title" required>
+
+                    <button type="submit" name="addBookBtn">Добавить книгу</button>
+                </form>
+            </div>
+        <?php endif; ?>
+        <div class="book-list-wrapper">
+            <h3>Список всех книг</h3>
+            <div class="book-list-container">
+                <ul id="bookList">
+                <?php foreach ($books as $book): ?>
+                        <li><?php echo htmlspecialchars($book['author'] . ' - ' . $book['title']); ?></li>
+                <?php endforeach; ?>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addBookBtn'])) {
+    $author = trim($_POST['author']);
+    $title = trim($_POST['title']);
+
+    if (!empty($author) && !empty($title)) {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO books (author, title) VALUES (:author, :title)");
+            $stmt->bindParam(':author', $author);
+            $stmt->bindParam(':title', $title);
+            $stmt->execute();
+
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } catch (PDOException $e) {
+            echo "Ошибка добавления книги: " . $e->getMessage();
+        }
+    } else {
+        echo "Пожалуйста, заполните все поля.";
+    }
+}
+?>
+
     <section id="readersPage" style="display:none">
         <?php if ($userRole === 'librarian'): ?>
         <h2>Читатели</h2>

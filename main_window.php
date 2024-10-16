@@ -132,27 +132,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteBookBtn'])) {
 }
 ?>
 
-    <section id="readersPage" style="display:none">
-        <?php if ($userRole === 'librarian'): ?>
+<section id="readersPage" style="display:none">
+    <?php if ($userRole === 'librarian'): ?>
         <h2>Читатели</h2>
-        <?php endif; ?>
-        <?php if ($userRole === 'user'): ?>
+    <?php endif; ?>
+    <?php if ($userRole === 'user'): ?>
         <h2>Мои книги</h2>
-        <?php endif; ?>
-    
-        <div class="container">
-            <div class="list-container">
-                <?php if ($userRole === 'librarian'): ?>
+    <?php endif; ?>
+
+    <div class="container">
+        <div class="list-container">
+            <?php if ($userRole === 'librarian'): ?>
                 <div class="list-box">
                     <ul id="readerList">
-                    <?php foreach ($users as $user): ?>
-                            <li><?php echo htmlspecialchars($user['first_name'] . ' - ' . $user['last_name'] . ' - ' . $user['birth_date']); ?></li>
+                        <?php foreach ($users as $user): ?>
+                            <li>
+                                <?php echo htmlspecialchars($user['first_name'] . ' - ' . $user['last_name'] . ' - ' . $user['birth_date']); ?>
+                                <form method="post" action="" style="display:inline;">
+                                    <input type="hidden" name="userId" value="<?php echo $user['id']; ?>">
+                                    <button type="submit" name="deleteReaderBtn">Удалить</button>
+                                </form>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
-                <?php endif; ?>
-            </div>
-            <?php if ($userRole === 'librarian'): ?>
+            <?php endif; ?>
+        </div>
+        
+        <?php if ($userRole === 'librarian'): ?>
             <div class="form-container">
                 <form action="add_reader.php" method="POST">
                     <input type="text" name="first_name" placeholder="Имя" required>
@@ -164,43 +171,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteBookBtn'])) {
                 </form>
             </div>
             <br><br>
-            <div class="form-container">
-                <button id="removeReaderBtn">Удалить читателя</button>
-            </div>
-            <?php endif; ?>
-        </div>
-    </section>
-    <?php if ($userRole === 'librarian'): ?>
-    <section id="libraryPage" style="display:none">
-        <h2>Библиотека</h2>
-        <div class="library-container">
-            <div class="library-lists">
-                <div class="book-list-section">
-                    <h3><?php echo ($userRole === 'librarian') ? 'Список книг' : 'Мои книги'; ?></h3>
-                    <ul id="libraryBookList">
-                        <?php foreach ($books as $book): ?>
-                            <li><?php echo htmlspecialchars($book['author'] . ' - ' . $book['title']); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-                    <div class="reader-list-section">
-                        <h3>Список читателей</h3>
-                        <div class="reader-list-and-actions">
-                            <ul id="readerList">
-                                <?php foreach ($users as $user): ?>
-                                    <li><?php echo htmlspecialchars($user['first_name'] . ' - ' . $user['last_name'] . ' - ' . $user['birth_date']); ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <div class="library-actions">
-                                <button id="issueBookBtn">Выдать книгу</button>
-                                <button id="returnBookBtn">Принять книгу</button>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </section>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</section>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteReaderBtn'])) {
+    $userId = intval($_POST['userId']);
+
+    if ($userId > 0) {
+        try {
+            $stmt = $pdo->prepare("DELETE FROM readers WHERE id = :id");
+            $stmt->bindParam(':id', $userId);
+            $stmt->execute();
+
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } catch (PDOException $e) {
+            echo "Ошибка удаления читателя: " . $e->getMessage();
+        }
+    }
+}
+?>
 </div>
 </main>
 </body>
